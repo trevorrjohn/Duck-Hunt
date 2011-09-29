@@ -1,0 +1,21 @@
+Title: Duck-Hunt
+
+This is the game was created by Trevor John.
+This game was created for Comp 120 at Tufts University.
+
+url: http://www.eecs.tufts.edu/~tjohn01/comp120/Duck-Hunt/duck.html
+
+Rules:
+You have three lives to kill as many birds as possible.
+Miss three birds and game over!
+
+Controls: 
+To shoot simply click the left mouse button where you are aiming.
+
+Testing:
+I tested on firefox, blackberry os 6 (not supported), chrome, iphone (works
+but not well).
+
+I could not get the audio to work and would like to add sound effects
+and also add more birds and the dog. The game plays very well and is fun
+to play but needs more birds so that the game can be more addicting.
