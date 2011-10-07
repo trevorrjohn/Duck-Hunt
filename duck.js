@@ -7,11 +7,10 @@ var sprite = new Image();
     canvas.height = document.height;
 var can_width = canvas.width;
 var can_height = canvas.height
-var scale = 2;
 var RIGHT = can_width;
 var LEFT = 0;
 var TOP = 0;
-var BOTTOM = 263;
+var BOTTOM = can_height- .185*can_height;
 
 /*duck location*/
 //black duck
@@ -50,7 +49,7 @@ function hitDuck() {
   } else {
     ctx.drawImage(sprite, fall_x, fall_y, fall_width,
         duck_height, duck_pos_x, duck_pos_y, fall_width, duck_height);
-    duck_pos_y += 15;
+    duck_pos_y += 25;
     if(duck_pos_y > BOTTOM) {
       duck_height -= 15;
       if(duck_height < 0) {
@@ -115,7 +114,7 @@ function fire(event) {
 }
 
 function rndSpeed() {
-  return Math.floor(Math.random()*10+(2*score));
+  return Math.floor(Math.random()*20+(2*score));
 }
 
 function rndSlope() {
