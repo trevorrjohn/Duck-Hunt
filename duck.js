@@ -3,8 +3,10 @@ var canvas = document.getElementById("map");
 var ctx = canvas.getContext('2d');
 var sprite = new Image();
     sprite.src = "duck_hunt_sprites.png";
-var can_width = 512;
-var can_height = 448
+    canvas.width = document.width;
+    canvas.height = document.height;
+var can_width = canvas.width;
+var can_height = canvas.height
 var scale = 2;
 var RIGHT = can_width;
 var LEFT = 0;
@@ -151,10 +153,10 @@ function gameLoop() {
 }
 
 function background() {
-  var bg_x = 644;
-  var bg_y = 136;
-  var bg_width = 256;
-  var bg_height = 224;
+  var bg_x = 913;
+  var bg_y = 0;
+  var bg_width = 2511-bg_x;
+  var bg_height = 1197;
   var bar_x = 256;
   var bar_y = 75;
   var bar_width = 227;
@@ -169,7 +171,7 @@ function background() {
   var ammo_loc_y = 413;
 
   ctx.drawImage(sprite, bg_x, bg_y, bg_width, bg_height,
-      0, 0, bg_width * scale, bg_height*2);
+      0, 0, can_width, can_height);
   ctx.drawImage(sprite, bar_x, bar_y, bar_width, bar_height,
       bar_location_x, bar_location_y, bar_width, bar_height);
   ctx.drawImage(sprite, ammo_x, ammo_y, ammo_width, ammo_height,
