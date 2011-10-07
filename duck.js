@@ -77,7 +77,7 @@ function flyAway() {
     return;
   }
   slope = -10;
-  speed = 10;
+  speed = 15;
   var away_x = 257;
   var away_y = 132;
   fcount++;
@@ -160,14 +160,14 @@ function background() {
   var bar_y = 75;
   var bar_width = 227;
   var bar_height = 23;
-  var bar_location_x = 25;
-  var bar_location_y = 410;
+  var bar_location_x = LEFT + can_width*.25;
+  var bar_location_y = can_height*.95;
   var ammo_x = 262;
   var ammo_y = 49;
   var ammo_width = 8 * ammo;
   var ammo_height = 10;
-  var ammo_loc_x = 31;
-  var ammo_loc_y = 413;
+  var ammo_loc_x = bar_location_x + 6;
+  var ammo_loc_y = bar_location_y + 3;
 
   ctx.drawImage(sprite, bg_x, bg_y, bg_width, bg_height,
       0, 0, can_width, can_height);
@@ -177,7 +177,7 @@ function background() {
       ammo_loc_x, ammo_loc_y, ammo_width, ammo_height);
   ctx.fillStyle = '#ffffff';
   ctx.font = "bold 10px inconsolata";
-  ctx.fillText(score*10, 220, 420);
+  ctx.fillText(score*10, bar_location_x + 200, bar_location_y + 10);
 }
 
 function start(event) {
