@@ -1,4 +1,5 @@
 /*global image, audio and canvas*/
+
 var canvas = document.getElementById("map");
 var ctx = canvas.getContext('2d');
 var sprite = new Image();
@@ -11,6 +12,7 @@ var RIGHT = can_width;
 var LEFT = 0;
 var TOP = 0;
 var BOTTOM = can_height- .185*can_height;
+var highSchores = new Array();
 
 /*duck location*/
 //black duck
@@ -48,8 +50,14 @@ var BOTTOM = can_height- .185*can_height;
   var duck_pos_x = -37;
   var duck_pos_y = Math.floor(Math.random()*150);
 
-  // red duck
-  var rduck_x = 5;
+// Dog info
+  var dogX = 24;
+  var dogY = 297;
+  var dogW = 56;
+  var dogH = 349 - 297;
+  var dcount = 0;
+  var dogPos = 0;
+
 /*time and game variables*/
 var timer;
 var fps = 10;
@@ -63,6 +71,23 @@ var fcount = 0;
 var FRAME_MAX = 3;
 var hitTimer = 0;
 
+function dogJump() {
+
+}
+
+function walkDog() {
+   if (dcount == 5){
+    dcount = 0;
+  }
+  ctx.drawImage(sprite, dogX + dogW*fcount, dogY, dogW, dogH,
+                dogPos, can_height*.83, dogW, dogH);
+  dcount++;
+  dogPos += 15;
+  if(dogPos > can_width/2){
+    clearInterval(timer);
+    timer = setInterval(dogJump, 1000/fps);
+  }
+}
 
 function hitDuck() {
   var hit_x = 261;
@@ -164,6 +189,7 @@ function reroute() {
 
 function moveDuck() {
   background();
+  walkDog();
   duck_pos_x += speed;
   duck_pos_y += slope;
   fcount++;
