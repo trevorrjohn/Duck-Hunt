@@ -14,13 +14,42 @@ var BOTTOM = can_height- .185*can_height;
 
 /*duck location*/
 //black duck
-  var duck_x = 256;
-  var duck_y = 170;
+  var bDuckR_x = 256;
+  var bDuckR_y = 170;
+  var bDuckL_x = 376;
+  var bDuckL_y = 170;
+  var bDuckAway_x;
+  var bDuckAway_y;
+  var bDuckHit;
+  var bDuckF;
+  // red duck
+  var rDuckR_x = 15;
+  var rDuckR_y = 550;
+  var rDuckL_x = 166;
+  var rDuckL_y = rDuckR_y;
+  var rDuckAway_x = 15;
+  var rDuckAway_y = 512;
+  var rDuckHit;
+  var rDuckF;
+  // Pink/blue Duck
+  var pDuckR_x = 17;
+  var pDuckR_y = 674;
+  var pDuckL_x = 166;
+  var pDuckL_y = 674;
+  var pDuckAway_x;
+  var pDuckAway_y;
+  var pDuckHit;
+  var pDuckF;
+  // used duck settings
+  var duck_x = rDuckAway_x;
+  var duck_y = rDuckAway_y;
   var duck_width = 37;
   var duck_height = 37;
   var duck_pos_x = -37;
   var duck_pos_y = Math.floor(Math.random()*150);
 
+  // red duck
+  var rduck_x = 5;
 /*time and game variables*/
 var timer;
 var fps = 10;
@@ -201,10 +230,10 @@ function mainMenu() {
   ctx.fillStyle = '#000000';
   ctx.fillRect(0, 0, can_width, can_height);
   ctx.drawImage(sprite, menu_x, menu_y, menu_width, menu_height,
-      can_width/4, can_height/5, menu_width, menu_height);
+      can_width/2 -  menu_width/2, can_height/2 - menu_height/2, menu_width, menu_height);
   ctx.fillStyle = "#5ce430";
   ctx.font = "bold 12px inconsolata";
-  ctx.fillText(score*10, 240, 225);
+  ctx.fillText(score*10, can_width/2-menu_width/2 + 110, can_height/2- menu_height/2 + 137);
   score = 0;
   canvas.addEventListener('click', start, false);
 }
