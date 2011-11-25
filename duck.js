@@ -1,6 +1,5 @@
 /*global image, audio and canvas*/
 
-var online = navigator.onLine
 var canvas = document.getElementById("map");
 var ctx = canvas.getContext('2d');
 var sprite = new Image();
@@ -296,10 +295,15 @@ function init() {
 }
 
 function mainMenu() {
-  if(document.cookie != "") {
-    var info = document.cookie.split("|", 3);
+  if(document.cookie != "" && navigator.onLine) {
+    var info = new Array();
+    info = document.cookie.split("|");
+    while(info.length != 0){
+      var score = info.pop().toInteger();
+      var user = info.pop().toString();
 
-    console.log(info);
+      $.post("http://score-app.heroku.com/api/v1/scores", {game: "Duck-Hunt", score: score*10, username: user});
+    }
   }
   if(played){
     var username = prompt("Enter your score-app.heroku.com username to send your score:", "username");
@@ -308,7 +312,7 @@ function mainMenu() {
     } else {
       var toBeSet = username + "|" + score.toString()
       document.cookie=toBeSet;
-      console.log(document.cookie);
+      console.log("Cookie set to:" + document.cookie);
     }
   }
 
