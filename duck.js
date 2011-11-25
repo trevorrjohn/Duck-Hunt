@@ -1,5 +1,6 @@
 /*global image, audio and canvas*/
 
+var online = navigator.onLine
 var canvas = document.getElementById("map");
 var ctx = canvas.getContext('2d');
 var sprite = new Image();
@@ -14,6 +15,8 @@ var TOP = 0;
 var BOTTOM = can_height - .25*can_height;
 var highSchores = new Array();
 var FLYRIGHT = new Boolean();
+var played = new Boolean();
+    played = false;
 /*duck location*/
   // Sprite Grid Info
   var duckH = 36;
@@ -169,6 +172,7 @@ function hit() {
 function flyAway() {
   if(duck_pos_y + duckH < TOP) {
     canvas.removeEventListener('click', arguments.callee, false);
+    played = true;
     mainMenu();
     return;
   }
@@ -292,6 +296,21 @@ function init() {
 }
 
 function mainMenu() {
+  if(document.cookie != "") {
+    var info = document.cookie.split(";", 3);
+
+    console.log(info);
+  }
+  if(played){
+    var username = prompt("Enter your score-app.heroku.com username to send your score:", "username");
+    if(username != "" && navigator.onLine){
+      $.post("http://score-app.heroku.com/api/v1/scores", {game: "Duck-Hunt", score: score*10, username: username});
+    } else {
+      document.cookie=username + ";" + score;
+      console.log(document.cookie);
+    }
+  }
+
   clearInterval(timer);
   var menu_x = 0;
   var menu_y = 0;
