@@ -297,7 +297,7 @@ function init() {
 
 function mainMenu() {
   if(document.cookie != "") {
-    var info = document.cookie.split(";", 3);
+    var info = document.cookie.split("|", 3);
 
     console.log(info);
   }
@@ -306,7 +306,7 @@ function mainMenu() {
     if(username != "" && navigator.onLine){
       $.post("http://score-app.heroku.com/api/v1/scores", {game: "Duck-Hunt", score: score*10, username: username});
     } else {
-      document.cookie=username + ";" + score;
+      document.cookie=username + "|" + score;
       console.log(document.cookie);
     }
   }
