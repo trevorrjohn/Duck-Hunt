@@ -306,7 +306,8 @@ function mainMenu() {
     if(username != "" && navigator.onLine){
       $.post("http://score-app.heroku.com/api/v1/scores", {game: "Duck-Hunt", score: score*10, username: username});
     } else {
-      document.cookie=username + "|" + score;
+      var toBeSet = username + "|" + score.toString()
+      document.cookie=toBeSet;
       console.log(document.cookie);
     }
   }
