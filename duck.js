@@ -294,25 +294,67 @@ function init() {
   sprite.onload = mainMenu();
 }
 
-function mainMenu() {
-  if(document.cookie != "" && navigator.onLine) {
-    var info = new Array();
-    info = document.cookie.split("|");
-    while(info.length != 0){
-      var score = info.pop().toInteger();
-      var user = info.pop().toString();
+//Code from W3Schools.org
+function setCookie(c_name,value,exdays)
+{
+var exdate=new Date();
+exdate.setDate(exdate.getDate() + exdays);
+var c_value=escape(value) + ((exdays==null) ? "" : "; expires="+exdate.toUTCString());
+document.cookie=c_name + "=" + c_value;
+}
 
-      $.post("http://score-app.heroku.com/api/v1/scores", {game: "Duck-Hunt", score: score*10, username: user});
+function getCookie(c_name)
+{
+var i,x,y,ARRcookies=document.cookie.split(";");
+for (i=0;i<ARRcookies.length;i++)
+{
+  x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+  y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+  x=x.replace(/^\s+|\s+$/g,"");
+  if (x==c_name)
+    {
+    return unescape(y);
     }
+  }
+}
+
+function checkCookie()
+{
+var username=getCookie("username");
+  if (username!=null && username!="")
+  {
+    return true;
+  }
+else
+  {
+    return false;
+  }
+}
+
+function mainMenu() {
+  if(localStorage.username != null && localStorage.score != null && navigator.onLine) {
+    var userArray = new Array();
+    var scoreArray = new Array();
+    userArray = localStorage.username.split(";");
+    scoreArray = localStorage.score.split(";");
+    localStorage.username = null;
+    localStorage.score = null;
+    while(userArray.length != 0){
+      var user = userArray.pop();
+      var scoreA = scoreArray.pop();
+      if(user != "" && scoreA != ""){
+        $.post("http://score-app.heroku.com/api/v1/scores", {game: "Duck-Hunt", score: scoreA*10, username: user});
+      }
+    }
+
   }
   if(played){
     var username = prompt("Enter your score-app.heroku.com username to send your score:", "username");
     if(username != "" && navigator.onLine){
       $.post("http://score-app.heroku.com/api/v1/scores", {game: "Duck-Hunt", score: score*10, username: username});
     } else {
-      var toBeSet = username + "|" + score.toString()
-      document.cookie=toBeSet;
-      console.log("Cookie set to:" + document.cookie);
+      localStorage.username += username + ";"
+      localStorage.score += score + ";"
     }
   }
 
